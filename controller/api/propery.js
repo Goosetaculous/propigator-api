@@ -3,7 +3,7 @@ var Zillow = require('node-zillow');
 exports.get_property = function(req, res) {
     var address = req.body.address;
     var citystatezip = req.body.citystatezip;
-    if (!address && !citystatezip){
+    if (!address || !citystatezip){
         res.status(412).send("Missing Property information!")
     }
     var parameters = {

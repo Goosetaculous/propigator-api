@@ -25,6 +25,7 @@
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "mongoose": "^4.13.6",
+    "node-zillow": "^1.0.1",
     "nodemon": "^1.12.1",
     "path": "^0.12.7"
   }

@@ -5,5 +5,5 @@ module.exports=(app)=>{
     app.get("/",(req,res)=>{
         res.status(200).send("test")
     })
-    app.get("/property", property.get_property)
+    app.post("/property", property.get_property)
 }

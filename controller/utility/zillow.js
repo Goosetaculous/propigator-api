@@ -1,6 +1,6 @@
 var Zillow  = require('node-zillow')
 
-var zwsid = "X1-ZWz1f5677kiadn_6bk45"
+var zwsid = "X1-ZWz1f5677kiadn_6bk45" //process.env.ZILLOW_KEY
 var zillow = new Zillow(zwsid)
 
 var parameters = {

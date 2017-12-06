@@ -23,6 +23,7 @@
     "crypto-js": "^3.1.9-1",
     "express": "^4.16.2",
     "jsonwebtoken": "^8.1.0",
+    "jwt-simple": "^0.5.1",
     "lodash": "^4.17.4",
     "mongoose": "^4.13.6",
     "node-zillow": "^1.0.1",

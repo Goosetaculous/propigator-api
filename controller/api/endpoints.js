@@ -1,19 +1,21 @@
+//These are valid endpoints
+//Read the local storage and see if the token is there
 const jwt = require('jsonwebtoken')
 
-verifyToken=(token,callback)=>{
-    console.log("TOKEN ",token)
-    jwt.verify(token,'secret_key_value',(err)=>{
+isAuthenticated=(token,callback)=>{
+    jwt.verify(token,'secret_key_value',(err,data)=>{
         if(err){
-            callback(true)
-        }else{
             callback(false)
+        }else{
+            callback(true)
         }
     })
+
 }
 
 
 module.exports = {
-    verifyToken:(req, res, next)=>{        
+    ensureToken:(req,res,next)=>{
         const bearerHeader = req.headers["x-auth"];
         if(typeof bearerHeader !== 'undefined'){
             const bearer = bearerHeader.split(" ");
@@ -26,10 +28,9 @@ module.exports = {
     },
 
     getProperty:(req,res)=>{
-        console.log(req.token)
-        
-        verifyToken(req.token,(verified)=>{
-            verified ? res.status(200).send({status:"success"}) : res.sendStatus(403)
+        isAuthenticated(req.token,(authenticated)=>{
+            //if authenticated do stuff with this route
+            res.send(authenticated)
         })
         
     }

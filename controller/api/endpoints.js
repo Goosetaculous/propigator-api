@@ -39,7 +39,10 @@ module.exports = {
             citystatezip: citystatezip
         };
         zillow.deepSearch(parameters).then(function (results) {
-            res.send(results);
+            var response = zillow.cleanDeepSearch(results);
+            var resonseCode = response[0];
+            var resonseMessage = response[1];
+            res.status(resonseCode).send(resonseMessage);
         });
     }
 }

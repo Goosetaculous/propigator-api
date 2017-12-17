@@ -2,6 +2,8 @@
 //Read the local storage and see if the token is there
 const jwt = require('jsonwebtoken');
 var zillow = require("../utility/zillow");
+var util = require("../utility/utility");
+
 
 isAuthenticated=(token,callback)=>{
     jwt.verify(token,'secret_key_value',(err,data)=>{
@@ -42,7 +44,17 @@ module.exports = {
             var response = zillow.cleanDeepSearch(results);
             var resonseCode = response[0];
             var resonseMessage = response[1];
-            res.status(resonseCode).send(resonseMessage);
+            if (resonseCode === 200) {
+                zillow.propertyDetails({zpid: resonseMessage.property_id})
+                    .then(function (results) {
+                        var detailMessage = zillow.cleanPropertyDetails(results);
+                        resonseMessage = util.extend(resonseMessage, detailMessage);
+                        res.status(resonseCode).send(resonseMessage);
+                    })
+            }
+            else{
+                res.status(resonseCode).send(resonseMessage);
+            }
         });
     }
 }

@@ -32,6 +32,8 @@ var zillow = new Zillow(zwsid);
                 estimate_from_tax: allDeepResults.taxAssessment ? allDeepResults.taxAssessment[0] : undefined,
                 lastSoldPrice: allDeepResults.lastSoldPrice ? allDeepResults.lastSoldPrice[0] : undefined,
                 lastSoldDate: allDeepResults.lastSoldDate ?  allDeepResults.lastSoldDate[0] : undefined,
+                lat: parseFloat(allDeepResults.address[0].latitude[0]),
+                lng: parseFloat(allDeepResults.address[0].longitude[0]),
                 property_id: allDeepResults.zpid[0]
             };
             return [200, zillowDeepResults];
@@ -49,7 +51,7 @@ var zillow = new Zillow(zwsid);
             var allDetailResults = results.response;
             zillowDetailResults = {
                 description: allDetailResults.homeDescription,
-                images: allDetailResults.images.image ? allDetailResults.images.image[0].url : undefined
+                images: allDetailResults.images ? allDetailResults.images.image[0].url : []
             };
             return zillowDetailResults;
         }

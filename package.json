@@ -28,6 +28,7 @@
     "mongoose": "^4.13.7",
     "node-zillow": "^1.0.1",
     "nodemon": "^1.12.7",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "validator": "^9.2.0"
   }
 }

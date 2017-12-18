@@ -28,7 +28,9 @@ var zillow = new Zillow(zwsid);
                 address: [allDeepResults.address[0].street[0], allDeepResults.address[0].city[0], allDeepResults.address[0].state[0], allDeepResults.address[0].zipcode[0]].join(", "),
                 bathrooms: allDeepResults.bathrooms[0],
                 bedrooms: allDeepResults.bedrooms[0],
-                estimate: allDeepResults.zestimate[0].amount[0],
+                sqft: allDeepResults.finishedSqFt[0],
+                yrBuilt: allDeepResults.yearBuilt[0],
+                estimate: allDeepResults.zestimate[0].amount[0] ? allDeepResults.zestimate[0].amount[0]._ : undefined,
                 estimate_from_tax: allDeepResults.taxAssessment ? allDeepResults.taxAssessment[0] : undefined,
                 lastSoldPrice: allDeepResults.lastSoldPrice ? allDeepResults.lastSoldPrice[0] : undefined,
                 lastSoldDate: allDeepResults.lastSoldDate ?  allDeepResults.lastSoldDate[0] : undefined,
@@ -49,9 +51,13 @@ var zillow = new Zillow(zwsid);
                 return [422, results.message.text]
             }
             var allDetailResults = results.response;
+            var images = allDetailResults.images ? allDetailResults.images.image[0].url : [];
+            for(var i=0; i < images.length; i++) {
+                images[i] = images[i].replace('p_d', 'p_f');
+            }
             zillowDetailResults = {
                 description: allDetailResults.homeDescription,
-                images: allDetailResults.images ? allDetailResults.images.image[0].url : []
+                images: images
             };
             return zillowDetailResults;
         }

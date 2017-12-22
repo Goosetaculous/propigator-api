@@ -1,5 +1,5 @@
-import { isEmail } from 'validator';
-const mongoose =  require('mongoose')
+const validator =  require('validator')
+const mongoose =  require('mongoose');
 
 var UserSchema = new mongoose.Schema({
     fname:{
@@ -14,17 +14,17 @@ var UserSchema = new mongoose.Schema({
         trim: true,
         minlength: 1
     },
-    email: {
+    email:{
         type: String,
+        required:true,
         trim: true,
-        lowercase: true,
-        unique: true,
-        required: 'Email address is required',
-        validate: [ isEmail, 'invalid email' ]
+        minlength: 1,
+        unique: true, //like primary key  can't have multiple
+        validate:[{ isAsync:false, validator: validator.isEmail, msg: 'Invalid email.' }]
     },
     date:{
         type: Date
     }
-}, { versionKey: false })
-var Users = mongoose.model('users',UserSchema)
-module.exports = {Users}
+}, { versionKey: false },  { timestamps: { createdAt: 'created_at' } })
+var Users = mongoose.model('Users',UserSchema)
+module.exports = Users
